@@ -1,0 +1,16 @@
+{
+  "name": "ws-class",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc -b && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "mukul1107 <mukul.110705@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@types/ws": "^8.18.1",
+    "ws": "^8.18.3"
+  }
+}
