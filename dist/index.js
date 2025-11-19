@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ws_1 = require("ws");
 const wss = new ws_1.WebSocketServer({ port: 8080 });
 wss.on("connection", (socket) => {
-    socket.send("Connected");
+    console.log("New client connected");
     socket.on("message", (msg) => {
         if (msg.toString() == "ping") {
             socket.send(`pong!`);
@@ -11,4 +11,6 @@ wss.on("connection", (socket) => {
         // socket.send(`Received: ${msg.toString()}`)
         console.log(msg.toString());
     });
+}).on("listening", () => {
+    console.log("WebSocket server is listening on ws://localhost:8080");
 });

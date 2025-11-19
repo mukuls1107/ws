@@ -5,7 +5,7 @@ const wss = new WebSocketServer({port: 8080})
 
 
 wss.on("connection", (socket)=>{
-    socket.send("Connected")
+    console.log("New client connected")
 
 
     socket.on("message", (msg)=>{
@@ -17,4 +17,6 @@ wss.on("connection", (socket)=>{
         console.log(msg.toString())
     })
 
+}).on("listening", ()=>{
+    console.log("WebSocket server is listening on ws://localhost:8080")
 })
