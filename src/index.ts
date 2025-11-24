@@ -1,20 +1,22 @@
-import {WebSocketServer} from 'ws'
+import { WebSocketServer, WebSocket } from "ws";
 
-const wss = new WebSocketServer({port: 8080})
+const wss = new WebSocketServer({ port: 8080 });
+const allClients: WebSocket[] = [];
 
+wss
+  .on("connection", (socket) => {
+    console.log("New client connected");
+    allClients.push(socket);
 
-
-wss.on("connection", (socket)=>{
-    console.log("New client connected")
-
-
-    socket.on("message", (msg)=>{
-       socket.send(`${new Date().getUTCHours()} :${msg.toString()}`)
-        // socket.send(`Received: ${msg.toString()}`)
-
-        console.log(msg.toString())
-    })
-
-}).on("listening", ()=>{
-    console.log("WebSocket server is listening on ws://localhost:8080")
-})
+    socket.on("message", (msg) => {
+      console.log(`Received message: ${msg}`);
+      setTimeout(() => {
+        allClients.forEach((client) => {
+          client.send(`Server response: ${msg.toString()}`);
+        });
+      }, 2000);
+    });
+  })
+  .on("listening", () => {
+    console.log("WebSocket server is listening on ws://localhost:8080");
+  });
